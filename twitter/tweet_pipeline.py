@@ -25,10 +25,10 @@ class TwitterPipeline:
 
     def __post_init__(self):
         self.client = tweepy.Client(
-            #consumer_key=TWITTER_CONSUMER_KEY,
-            #consumer_secret=TWITTER_CONSUMER_SECRET_KEY,
-            #access_token=TWITTER_ACCESS_TOKEN,
-            #access_token_secret=TWITTER_ACCESS_SECRET_TOKEN,
+            consumer_key=TWITTER_CONSUMER_KEY,
+            consumer_secret=TWITTER_CONSUMER_SECRET_KEY,
+            access_token=TWITTER_ACCESS_TOKEN,
+            access_token_secret=TWITTER_ACCESS_SECRET_TOKEN,
             bearer_token=TWITTER_BEARER_TOKEN,
             wait_on_rate_limit=True,
             return_type=dict,
