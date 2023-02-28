@@ -17,12 +17,12 @@ special_tokens = ["BTS", "bts", "RM", "rm", "진", "김석진", "석진", "김�
 # fmt: on
 
 
-def main(spam_filter, twitter_pipeline, data_pipeline, elastic_retriever, generator, db):
+def main(spam_filter, twitter_pipeline, data_pipeline, elastic_retriever, generator): # 🔺 db
     today = datetime.now(timezone("Asia/Seoul")).strftime("%m%d")
 
     # twitter api에서 메시지 불러오기
     new_tweets = twitter_pipeline.get_mentions()
-    if len(new_tweets) == 0:  
+    if len(new_tweets) == 0:
         # 새 메시지가 없으면
         time.sleep(60.0)
     else:
@@ -62,9 +62,9 @@ def main(spam_filter, twitter_pipeline, data_pipeline, elastic_retriever, genera
                 time=time_log,
             ).__dict__
             print(record)
-            db.insert_one(record)
+            #db.insert_one(record) # 🔺
 
-    return main(spam_filter, twitter_pipeline, data_pipeline, elastic_retriever, generator, db)
+    return main(spam_filter, twitter_pipeline, data_pipeline, elastic_retriever, generator) # db
 
 
 if __name__ == "__main__":
@@ -72,10 +72,10 @@ if __name__ == "__main__":
 
     # init modules
     spam_filter = SpamFilter()
-    twitter_pipeline = TwitterPipeline(FILE_NAME="./twitter/last_seen_id.txt", bot_username="armybot_13")
+    twitter_pipeline = TwitterPipeline(FILE_NAME="./twitter/last_seen_id.txt", bot_username="wjlee_nlp")
     data_pipeline = DataPipeline(log_dir="log", special_tokens=special_tokens)
     elastic_retriever = ElasticRetriever()
     generator = Generator(config)
-    db = MongoDB()
+    # db = MongoDB()
 
-    main(spam_filter, twitter_pipeline, data_pipeline, elastic_retriever, generator, db)
+    main(spam_filter, twitter_pipeline, data_pipeline, elastic_retriever, generator) # 🔺 db
