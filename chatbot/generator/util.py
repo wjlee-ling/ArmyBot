@@ -19,6 +19,8 @@ class Generator:
         # torch.backends.cudnn.deterministic = True
         # torch.backends.cudnn.benchmark = False
         self.config = config
+        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        self.device = "mps" if torch.backends.mps.is_available() else self.device
         self.get_model()
 
     def get_model(self):
@@ -42,7 +44,7 @@ class Generator:
             else:
                 model = AutoModelForSeq2SeqLM.from_pretrained(model_path)
                 model.resize_token_embeddings(len(tokenizer))
-        model.to("cuda")
+        model.to(self.device)
         self.tokenizer = tokenizer
         self.model = model
 
@@ -57,7 +59,7 @@ class Generator:
         ):
             # text = self.tokenizer.bos_token + text + self.tokenizer.eos_token
             pass
-        return torch.tensor(self.tokenizer.encode(text)).unsqueeze(0).to("cuda")
+        return torch.tensor(self.tokenizer.encode(text)).unsqueeze(0).to(self.device)
 
     def decoding(self, ids):
         return self.tokenizer.decode(ids, skip_special_tokens=True)
