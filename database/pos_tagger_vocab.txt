@@ -101,3 +101,4 @@ hybe	NNP
 챗봇	NNG
 찐	MM
 개	MAG	-1
+<account>   NNP
