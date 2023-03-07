@@ -88,7 +88,7 @@ class KinFilter:
         df = pd.concat(ls)
         df.fillna("", inplace=True)
         df["Q"] = df.apply(
-            lambda row: self.clean(row["title"]) + " " + self.clean(row["query"]),
+            lambda row: (self.clean(row["title"]) + " " + self.clean(row["query"])).strip(),
             axis=1,
         )
 
