@@ -183,6 +183,11 @@ data
 .vscode
 .git
 
+# fasttext
+*.DS_Store
+*.bin
+*.vec
+chatbot/pipeline/*.txt
 
 # WandB
 wandb/
@@ -194,6 +199,8 @@ model/save_models/
 model.pt
 output.csv
 output_n.csv
+
+# 
 
 save_models/
 saved_models/
