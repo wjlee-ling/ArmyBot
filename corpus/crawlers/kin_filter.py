@@ -82,7 +82,9 @@ class KinFilter:
         ls = []
         for path in paths:
             with path.open() as f:
-                ls.append(pd.read_csv(f))
+                _df = pd.read_csv(f)
+                _df["File"] = str(path.name)
+                ls.append(_df)
 
         print(f"Got {len(ls)} csv(s) to preprocess")
         df = pd.concat(ls)
@@ -102,7 +104,7 @@ class KinFilter:
         df = df[df["A"].astype(bool)] # delete rows with empty string ""
         df = df[df["Q"].astype(bool)]
         #df.dropna(axis=0, how="any", subset=["Q", "A"], inplace=True)
-        df = df[["Q", "A"]]
+        df = df[["Q", "A", "File"]]
         return df
 
     def clean(self, text: str) -> dict:
